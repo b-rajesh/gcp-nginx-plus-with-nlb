@@ -2,7 +2,8 @@
 This project is to create GCP infrastructure usign Terraform to deploy nginx plus as API Gateway and load balanced with NLB
 
 ## Pre-requisite 
-    1. Build the nginxplus image using packer , follow the instruction here https://github.com/b-rajesh/nginxplus-packer-image-builder
+    1. Build the nginxplus image using packer ,follow the instructions
+       here https://github.com/b-rajesh/nginxplus-packer-image-builder
     2. Build the following microservices image using packer, follow the instructions on each
        1. https://github.com/b-rajesh/hello-nginxplus
        2. https://github.com/b-rajesh/hello-f1
