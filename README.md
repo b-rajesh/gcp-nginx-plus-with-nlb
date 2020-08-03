@@ -11,6 +11,9 @@ This project is to create GCP infrastructure usign Terraform to deploy nginx plu
 
     3. Replace `terraform.tfvars` values with your `project_id` , `region` and other variables. Your  `project_id` &  `region`  must match the project you've initialized gcloud with.
 
+## Base nginx plus project used 
+    You don't have to check-out this project(explicitly) as it would be automatically used while building the nginx plus vm image
+    https://github.com/b-rajesh/diy-nginx-plus-api-gateway
 
 ## Install appropriate GCP tools
 First, install the Google Cloud CLI
