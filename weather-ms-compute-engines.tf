@@ -65,6 +65,7 @@ resource "google_compute_instance_group_manager" "weather-microservice-group-man
     instance_template = google_compute_instance_template.weather-microservice-template.id
   }
 }
+
 resource "null_resource" "weather-api-upstream" {
   depends_on  = [google_compute_region_backend_service.microservice-backend,google_compute_instance_template.nginx-plus-gwy-template, google_compute_forwarding_rule.ms-internal-lb-forwarding-rule, google_compute_forwarding_rule.gce-ext-lb-80-forwarding-rule]
   provisioner "local-exec" {

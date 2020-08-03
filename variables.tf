@@ -4,6 +4,8 @@ variable "project_id" {}
 variable "region" {}
 variable "gwy_subnet_cidr" {}
 variable "machine_type" {}
+variable "f1_api_image" {}
+variable "hello_nginx_api_image" {}
 variable "gce_image_name"  {
   description = "Assuming you would have run the packer to build the image, you could override this in terraform.tfvars"
   default = "nginxplus-r22"

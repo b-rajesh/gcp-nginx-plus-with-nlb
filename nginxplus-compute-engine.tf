@@ -51,10 +51,11 @@ resource "google_compute_firewall" "nginx-plus-firewall-rule" {
   depends_on = [google_compute_forwarding_rule.gce-ext-lb-80-forwarding-rule, google_compute_forwarding_rule.gce-ext-lb-8080-forwarding-rule]
   name        = "nginx-plus-fw-rule"
   network     = var.network
-  description = "Allow access to ports 80,443 and 8080 on all NGINX plus instances."
+  description = "Allow access to ports 22,80,443 and 8080 on all NGINX plus instances."
   allow {
     protocol = "tcp"
     ports = [
+      "22",
       "80",
       "443",
       "8080",

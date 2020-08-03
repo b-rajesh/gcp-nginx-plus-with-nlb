@@ -32,11 +32,3 @@ resource "google_compute_address" "ext-lb-staticip-address" {
   name = "ngx-network-lb-static-ip"
 }
 
-resource "google_compute_address" "address_for_internal_lb" {
-  name         = "internal-loadbalancer-address"
-  subnetwork   = google_compute_subnetwork.microservice-subnet.id
-  address_type = "INTERNAL"
-  //address      = "10.20.0.1"
-  region        = var.region
-}
-
