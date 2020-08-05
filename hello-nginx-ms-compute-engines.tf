@@ -1,7 +1,7 @@
 resource "google_compute_instance_template" "hello-nginx-microservice-template" {
   depends_on  = [google_compute_subnetwork.microservice-subnet]
-  name        = "hello-nginx-microservice-template"
-  tags = ["microservices"] #One firewall rule to let nginxplus to talk to the services deployed in the microservice subnet
+  name        = "${random_pet.pet-prefix.id}-hello-nginx-microservice-template"
+  tags = ["${random_pet.pet-prefix.id}-microservices"] #One firewall rule to let nginxplus to talk to the services deployed in the microservice subnet
 
   labels = {
     environment = "dev"
@@ -38,7 +38,7 @@ resource "google_compute_instance_template" "hello-nginx-microservice-template" 
 
 resource "google_compute_instance_group_manager" "hello-nginx-microservice-group-manager" {
   depends_on  = [google_compute_subnetwork.microservice-subnet]
-  name               = "hello-nginx-ms-instance-group-manager"
+  name               = "${random_pet.pet-prefix.id}-hello-nginx-ms-instance-group-manager"
   base_instance_name = "hello-nginx-microservice"
   zone               = var.zones
   target_size        = "3"

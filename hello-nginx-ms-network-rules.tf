@@ -3,7 +3,7 @@ resource "google_compute_forwarding_rule" "ms-internal-lb-forwarding-rule-hello-
   network               = google_compute_network.vpc.name
   subnetwork            = google_compute_subnetwork.microservice-subnet.name
   region                = var.region
-  name                  = "hello-nginx-ms-internal-lb"
+  name                  = "${random_pet.pet-prefix.id}-hello-nginx-ms-internal-lb"
   backend_service       = google_compute_region_backend_service.hello-nginx-microservice-backend.id
   load_balancing_scheme = "INTERNAL"
   ip_address            = google_compute_address.hello-nginx-internal_lb-ip.address
@@ -13,7 +13,7 @@ resource "google_compute_forwarding_rule" "ms-internal-lb-forwarding-rule-hello-
 }
 
 resource "google_compute_health_check" "hello-nginx-ms-healthcheck" {
-  name                  = "hello-nginx-api-healthcheck"
+  name                  = "${random_pet.pet-prefix.id}-hello-nginx-api-healthcheck"
   http_health_check {
     port                = "3000"
     request_path        = "/hello-nginxplus-api/health"
@@ -21,7 +21,7 @@ resource "google_compute_health_check" "hello-nginx-ms-healthcheck" {
 }
 
 resource "google_compute_region_backend_service" "hello-nginx-microservice-backend" {
-  name          = "hello-nginx-microservice-backend"
+  name          = "${random_pet.pet-prefix.id}-hello-nginx-microservice-backend"
   region        = var.region
   backend {
     group       = google_compute_instance_group_manager.hello-nginx-microservice-group-manager.instance_group
@@ -30,7 +30,7 @@ resource "google_compute_region_backend_service" "hello-nginx-microservice-backe
 }
 
 resource "google_compute_address" "hello-nginx-internal_lb-ip" {
-  name         = "hello-nginx-internal-loadbalancer-ip"
+  name         = "${random_pet.pet-prefix.id}-hello-nginx-internal-loadbalancer-ip"
   subnetwork   = google_compute_subnetwork.microservice-subnet.id
   address_type = "INTERNAL"
   region        = var.region

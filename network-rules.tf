@@ -5,7 +5,7 @@ resource "google_compute_forwarding_rule" "gce-ext-lb-80-forwarding-rule" {
   //network               = google_compute_network.vpc.name
   //subnetwork            = google_compute_subnetwork.subnet.name
   region                = var.region
-  name                  = "gce-external-lb-80"
+  name                  = "${random_pet.pet-prefix.id}-gce-external-lb-80"
   target                = google_compute_target_pool.default.self_link
   load_balancing_scheme = "EXTERNAL"
   //network_tier           = "STANDARD"
@@ -20,7 +20,7 @@ resource "google_compute_forwarding_rule" "gce-ext-lb-8080-forwarding-rule" {
   //network               = google_compute_network.vpc.name
   //subnetwork            = google_compute_subnetwork.subnet.name
   region                = var.region
-  name                  = "gce-external-lb-8080"
+  name                  = "${random_pet.pet-prefix.id}-gce-external-lb-8080"
   target                = google_compute_target_pool.default.self_link
   load_balancing_scheme = "EXTERNAL"
   //network_tier           = "STANDARD"
@@ -32,7 +32,7 @@ resource "google_compute_forwarding_rule" "gce-ext-lb-8080-forwarding-rule" {
 
 
 resource "google_compute_target_pool" "default" {
-  name             = "ext-loadbalancer-nginx-plus"
+  name             = "${random_pet.pet-prefix.id}-ext-loadbalancer-nginx-plus"
   //instances        = google_compute_instance_group_manager.nginx-plus-gwy-group-manager.self_link
   //session_affinity = var.session_affinity
   health_checks = google_compute_http_health_check.default.*.name
@@ -48,27 +48,3 @@ resource "google_compute_http_health_check" "default" {
   unhealthy_threshold = var.health_check_unhealthy_threshold
   timeout_sec         = var.health_check_timeout
 }
-
-
-/*
-resource "google_compute_firewall" "nlb-ingress-firewall-rule" {
-  name        = "nlb-ingress-fw-rule"
-  network     = var.network
-  description = "Allow access to ports 80,443 and 8080 on all NGINX plus instances."
-  allow {
-    protocol = "tcp"
-    ports = [
-      "80",
-      "443",
-      "8080",
-    ]
-  }
-  //source_tags = ["gce-nlb-only"]
-  source_ranges = [
-    "0.0.0.0/0" //firewall rule applies only to traffic that has a source IP address in these ranges
-  ]
-  target_tags = [
-    "nginx-plus-api-gwy", //the firewall rule applies only to instances in the VPC network that have one of these tags
-  ]
-}
-*/

@@ -1,7 +1,7 @@
 resource "google_compute_firewall" "microservice-firewall-rule" {
   depends_on  = [google_compute_subnetwork.microservice-subnet]
-  name        = "microservice-fw-rule"
-  network     = var.network
+  name        = "${random_pet.pet-prefix.id}-microservice-fw-rule"
+  network     =  "${random_pet.pet-prefix.id}-${var.network}"
   description = "Allow access to port 3000 to only accessed from nginx plus api gateway."
   allow {
     protocol = "tcp"
@@ -9,17 +9,17 @@ resource "google_compute_firewall" "microservice-firewall-rule" {
       "3000",
     ]
   }
-  source_tags = ["nginx-plus-api-gwy"]
+  source_tags = ["${random_pet.pet-prefix.id}-nginx-plus-api-gwy"]
 
   target_tags = [
-    "microservices", //the firewall rule applies only to instances in the VPC network that have one of these tags, which would be for nginx instances through templates
+    "${random_pet.pet-prefix.id}-microservices", //the firewall rule applies only to instances in the VPC network that have one of these tags, which would be for nginx instances through templates
   ]
 }
 
 resource "google_compute_instance_template" "weather-microservice-template" {
   depends_on  = [google_compute_subnetwork.microservice-subnet]
-  name        = "weather-microservice-template"
-  tags = ["microservices"]
+  name        = "${random_pet.pet-prefix.id}-weather-microservice-template"
+  tags = ["${random_pet.pet-prefix.id}-microservices"]
 
   labels = {
     environment = "dev"
@@ -56,7 +56,7 @@ resource "google_compute_instance_template" "weather-microservice-template" {
 
 resource "google_compute_instance_group_manager" "weather-microservice-group-manager" {
   depends_on  = [google_compute_subnetwork.microservice-subnet]
-  name               = "weather-ms-instance-group-manager"
+  name               = "${random_pet.pet-prefix.id}-weather-ms-instance-group-manager"
   base_instance_name = "weather-microservice"
   zone               = var.zones
   target_size        = "3"

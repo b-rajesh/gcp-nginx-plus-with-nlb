@@ -1,6 +1,6 @@
 resource "google_compute_instance_template" "nginx-plus-gwy-template" {
-  name        = "nginx-plus-gwy-template"
-  tags = ["nginx-plus-api-gwy"]
+  name        = "${random_pet.pet-prefix.id}-nginx-plus-gwy-template"
+  tags = ["${random_pet.pet-prefix.id}-nginx-plus-api-gwy"]
 
   labels = {
     environment = "dev"
@@ -37,7 +37,7 @@ resource "google_compute_instance_template" "nginx-plus-gwy-template" {
 }
 
 resource "google_compute_instance_group_manager" "nginx-plus-gwy-group-manager" {
-  name               = "nginx-plus-gwy-instance-group-manager"
+  name               = "${random_pet.pet-prefix.id}-nginx-plus-gwy-instance-group-manager"
   base_instance_name = "nginx-plus-api-gwy"
   zone               = var.zones
   target_size        = "1"
@@ -49,8 +49,8 @@ resource "google_compute_instance_group_manager" "nginx-plus-gwy-group-manager" 
 
 resource "google_compute_firewall" "nginx-plus-firewall-rule" {
   depends_on = [google_compute_forwarding_rule.gce-ext-lb-80-forwarding-rule, google_compute_forwarding_rule.gce-ext-lb-8080-forwarding-rule]
-  name        = "nginx-plus-fw-rule"
-  network     = var.network
+  name        = "${random_pet.pet-prefix.id}-nginx-plus-fw-rule"
+  network     =  "${random_pet.pet-prefix.id}-${var.network}"
   description = "Allow access to ports 22,80,443 and 8080 on all NGINX plus instances."
   allow {
     protocol = "tcp"
@@ -64,6 +64,6 @@ resource "google_compute_firewall" "nginx-plus-firewall-rule" {
   //source_tags = ["nginx-plus-api-gwy"]
 
   target_tags = [
-    "nginx-plus-api-gwy", //the firewall rule applies only to instances in the VPC network that have one of these tags, which would be for nginx instances through templates
+    "${random_pet.pet-prefix.id}-nginx-plus-api-gwy", //the firewall rule applies only to instances in the VPC network that have one of these tags, which would be for nginx instances through templates
   ]
 }
