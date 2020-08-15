@@ -39,7 +39,7 @@ resource "google_compute_target_pool" "default" {
 }
 
 resource "google_compute_http_health_check" "default" {
-  name    = "nginx-plus-health-check"
+  name    = "${random_pet.pet-prefix.id}-nginx-plus-health-check"
 
   request_path        = var.health_check_path
   port                = var.health_check_port
