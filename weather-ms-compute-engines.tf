@@ -1,5 +1,5 @@
 resource "google_compute_firewall" "microservice-firewall-rule" {
-  depends_on  = [google_compute_subnetwork.microservice-subnet]
+  depends_on  = [google_compute_subnetwork.microservice-subnet, google_compute_instance_template.nginx-plus-gwy-template]
   name        = "${random_pet.pet-prefix.id}-microservice-fw-rule"
   network     =  "${random_pet.pet-prefix.id}-${var.network}"
   description = "Allow access to port 3000 to only accessed from nginx plus api gateway."

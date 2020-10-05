@@ -4,19 +4,15 @@ variable "project_id" {}
 variable "region" {}
 variable "gwy_subnet_cidr" {}
 variable "machine_type" {}
+variable "nginx_plus_image_name_on_gcp"  {}
+variable "weather_api_image" {}
 variable "f1_api_image" {}
 variable "hello_nginx_api_image" {}
+variable "nginx_machine_type" {}
 variable "prefix" {
   description = "A prefix used for all resources in this example - keep it within 3-5 letters"
 }
-variable "gce_image_name"  {
-  description = "Assuming you would have run the packer to build the image, you could override this in terraform.tfvars"
-  default = "nginxplus-r22"
-}
-variable "weather_api_image" {
-  description = "Assuming you would have run the packer to build the image, you could override this in terraform.tfvars"
-  default = "weather-api-v1"
-}
+
 variable "zones" {}
 variable "microservice_subnet" {}
 variable "microservice_subnet_cidr" {}

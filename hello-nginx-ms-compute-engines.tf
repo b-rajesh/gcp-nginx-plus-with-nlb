@@ -1,5 +1,5 @@
 resource "google_compute_instance_template" "hello-nginx-microservice-template" {
-  depends_on  = [google_compute_subnetwork.microservice-subnet]
+  depends_on  = [google_compute_subnetwork.microservice-subnet, google_compute_instance_template.nginx-plus-gwy-template]
   name        = "${random_pet.pet-prefix.id}-hello-nginx-microservice-template"
   tags = ["${random_pet.pet-prefix.id}-microservices"] #One firewall rule to let nginxplus to talk to the services deployed in the microservice subnet
 

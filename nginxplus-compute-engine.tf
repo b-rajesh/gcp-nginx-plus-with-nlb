@@ -5,7 +5,7 @@ resource "google_compute_instance_template" "nginx-plus-gwy-template" {
   labels = {
     environment = "dev"
   }
-  machine_type         = var.machine_type
+  machine_type         = var.nginx_machine_type
   can_ip_forward       = false
 
   scheduling {
@@ -15,7 +15,7 @@ resource "google_compute_instance_template" "nginx-plus-gwy-template" {
 
   // Create a new boot disk from an image
   disk {
-    source_image = var.gce_image_name
+    source_image = var.nginx_plus_image_name_on_gcp
     auto_delete  = true
     boot         = true
   }
