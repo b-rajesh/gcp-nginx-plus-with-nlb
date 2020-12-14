@@ -3,7 +3,7 @@ This project is to create GCP infrastructure usign Terraform to deploy nginx plu
 
 ## Pre-requisite 
     1. Build the nginxplus image using packer ,follow the instructions
-       here https://github.com/b-rajesh/diy-nplus-api-gwy-security-policies
+       here https://github.com/b-rajesh/diy-nplus-api-gwy-security-policies and get the image name to refer the same in this file https://github.com/b-rajesh/gcp-nginx-plus-with-nlb/blob/master/terraform.tfvars as nginx_plus_image_name_on_gcp
     2. Build the following microservices image using packer, follow the instructions on each
        1. https://github.com/b-rajesh/hello-nginxplus
        2. https://github.com/b-rajesh/hello-f1
